@@ -32,6 +32,14 @@ class App extends Component {
     this.setState({ filter: event.currentTarget.value });
   }
 
+  HandleDeleteUser = event => {
+    const deleteUserId = event.currentTarget.value;
+
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== deleteUserId)
+    }))
+  }
+
   render() { 
 
     const normalizedFilter = this.state.filter.toLocaleLowerCase();
@@ -42,7 +50,6 @@ class App extends Component {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'center',
         color: '#010101'
       }}
@@ -54,7 +61,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter value={this.state.filter} filterChange={this.HandlerFilter}/>
 
-        <ContactList users={visibleContacts} />
+        <ContactList users={visibleContacts} onClick={this.HandleDeleteUser}/>
 
 
     </div>

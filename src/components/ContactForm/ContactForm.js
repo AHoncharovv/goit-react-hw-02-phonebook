@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import s from './ContactForm.module.css'
+import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
     state = {
@@ -13,7 +15,6 @@ class ContactForm extends Component {
 
     HandleSubmit = event => {
         event.preventDefault();
-        // console.log(this.state);
         this.props.onSubmit(this.state);
         this.formReset();
     }
@@ -23,21 +24,8 @@ class ContactForm extends Component {
     
     render() {
         return(
-        <form onSubmit={this.HandleSubmit}
-        style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-        >
-            <label
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-            >
+        <form onSubmit={this.HandleSubmit} className={s.form}>
+            <label className={s.label}>
                 Name
                 <input
                     type="text"
@@ -47,16 +35,12 @@ class ContactForm extends Component {
                     required
                     value={this.state.name}
                     onChange={this.HandleInputChange}
+                    className={s.input}
+                    
                 />
             </label>
 
-            <label
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-            >
+            <label className={s.label}>
                 Number
                 <input
                   type="tel"
@@ -66,16 +50,11 @@ class ContactForm extends Component {
                     required
                     value={this.state.number}
                     onChange={this.HandleInputChange}
+                    className={s.input}
                 />
             </label>
 
-            <button type="submit"
-                style={{
-                fontSize: 20,
-                color: '#010101',
-                margin: 15,
-            }}
-            >Add contact</button>
+            <button className={s.btn}>Add contact</button>
         </form>
         
     )
@@ -83,3 +62,7 @@ class ContactForm extends Component {
 };
 
 export default ContactForm;
+
+ContactForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};

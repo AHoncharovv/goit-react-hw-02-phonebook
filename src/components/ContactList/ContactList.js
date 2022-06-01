@@ -1,8 +1,14 @@
-function ContactList({ users }) {
+import s from './ContactList.module.css';
+import PropTypes from 'prop-types';
+
+function ContactList({ users, onClick }) {
     return (
-        <ul>
+        <ul className={s.list}>
             {users.map((user) => (
-                <li key={user.id}>{user.name} : {user.number}</li>
+                <li key={user.id} className={s.item}>
+                    <span className={s.text}>{user.name} : {user.number}</span>
+                    <button type="button" value={user.id} onClick={onClick} className={s.btn}>Delete</button>
+                </li>
             ))}
         </ul>
     )
@@ -10,3 +16,7 @@ function ContactList({ users }) {
 
 export default ContactList;
 
+ContactList.propTypes = {
+    users: PropTypes.arrayOf(PropTypes.object.isRequired),
+    onClick: PropTypes.func.isRequired,
+}
