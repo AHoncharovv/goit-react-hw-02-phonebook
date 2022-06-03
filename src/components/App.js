@@ -18,14 +18,11 @@ class App extends Component {
   
   HandlerSubmitForm = ({name, number}) => {
     const newUser = { id: nanoid(5), name, number };
-    
     const newUserNormalized = name.toLowerCase();
     const matchedName = this.state.contacts.find(contact => contact.name.toLowerCase() === newUserNormalized)
-   
     matchedName
       ? alert(`${name} is already in contacts.`)
       : this.setState(prevState => ({contacts: [...prevState.contacts, newUser]}));
-   
   }
 
   HandlerFilter = event => {
@@ -34,7 +31,6 @@ class App extends Component {
 
   HandleDeleteUser = event => {
     const deleteUserId = event.currentTarget.value;
-
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== deleteUserId)
     }))
@@ -45,27 +41,26 @@ class App extends Component {
     const normalizedFilter = this.state.filter.toLocaleLowerCase();
     const visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
 
-    return(
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        color: '#010101'
-      }}
-    >
-      <h1>Phonebook</h1>
-        
+    return (
+      
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          color: '#010101'
+        }}
+      >
+
+        <h1>Phonebook</h1>
         <ContactForm onSubmit={this.HandlerSubmitForm} />
-        
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} filterChange={this.HandlerFilter}/>
+        <Filter value={this.state.filter} filterChange={this.HandlerFilter} />
+        <ContactList users={visibleContacts} onClick={this.HandleDeleteUser} />
 
-        <ContactList users={visibleContacts} onClick={this.HandleDeleteUser}/>
+      </div>
 
-
-    </div>
-  );
+    );
   };
 };
 

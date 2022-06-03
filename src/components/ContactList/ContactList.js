@@ -17,6 +17,10 @@ function ContactList({ users, onClick }) {
 export default ContactList;
 
 ContactList.propTypes = {
-    users: PropTypes.arrayOf(PropTypes.object.isRequired),
-    onClick: PropTypes.func.isRequired,
+    users: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired
+    })),
+    onClick: PropTypes.func.isRequired
 }
